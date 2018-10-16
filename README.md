@@ -23,11 +23,13 @@ Data Validation with <a target="_blank" href="https://github.com/vlucas/valitron
   
 INSTALLATION (work in progress)    
 composer create-project it-all/slim-postgres-skeleton  
-Create PostgreSQL database and restore pg_schema.sql and pg_data.sql  
+composer install  
+Create your PostgreSQL database and restore pg_schema.sql and pg_data.sql  
 Copy/rename .env.example to .env then edit .env  
 Edit then run cliScripts/insertAdministrator.php  
 Navigate to your-site to see the default homepage  
 Navigate to your-site/private (the admin directory defined in settings['adminPath']) and login!  
+You may need to set write permissions on the storage directory  
 
 CODING NEW FUNCTIONALITY (work in progress)  
 Create a new directory under domain and create a Model/View/Controller (or whatever code structure you desire) as necessary. You can model these files after existing functionality such as SlimPostgres/Administrators/Roles (single database table model) or SlimPostgres/Administrators (joined database tables).  
