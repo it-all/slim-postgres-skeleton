@@ -21,8 +21,7 @@ Data Validation with <a target="_blank" href="https://github.com/vlucas/valitron
 <a href="https://github.com/vlucas/phpdotenv">PHP dotenv</a> for configuring server environments  
 <a href="#errLog">PHP Error Logging with Stack Trace</a> for debugging  
   
-INSTALLATION  
-*work in progress*  
+INSTALLATION (work in progress)    
 composer create-project it-all/slim-postgres-skeleton  
 Create PostgreSQL database and restore pg_schema.sql and pg_data.sql  
 Copy/rename .env.example to .env then edit .env  
@@ -30,8 +29,7 @@ Edit then run cliScripts/insertAdministrator.php
 Navigate to your-site to see the default homepage  
 Navigate to your-site/private (the admin directory defined in settings['adminPath']) and login!  
 
-CODING NEW FUNCTIONALITY  
-*work in progress*  
+CODING NEW FUNCTIONALITY (work in progress)  
 Create a new directory under domain and create a Model/View/Controller (or whatever code structure you desire) as necessary. You can model these files after existing functionality such as SlimPostgres/Administrators/Roles (single database table model) or SlimPostgres/Administrators (joined database tables).  
 Add and configure your new route to the system by:  
 - Adding a new route name constant in config/constants.php  
