@@ -1,0 +1,23 @@
+{
+    "name": "it-all/slim-postgres-skeleton",
+    "description": "The interface to it-all/slim-postgres: A PHP Framework Based on Slim Micro-Framework and PostgreSQL",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Greg Catalano",
+            "email": "greg@it-all.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1",
+        "it-all/slim-postgres": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Domain\\": "domain",
+            "Templates\\": "templates"
+        }
+    }
+}
