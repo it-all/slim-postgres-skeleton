@@ -1,6 +1,6 @@
 # slim-postgres-skeleton  
-slim-postgres-skeleton works in conjunction with slim-postgres for web app development.  
-slim-postgres is a PHP Framework Based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a href="https://www.postgresql.org/">PostgreSQL</a>.  
+slim-postgres-skeleton works in conjunction with <a href="https://github.com/it-all/slim-postgres" target="_blank">slim-postgres</a> for web app development.  
+<a href="https://github.com/it-all/slim-postgres" target="_blank">slim-postgres</a> is a PHP Framework Based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a href="https://www.postgresql.org/">PostgreSQL</a>.  
   
 slim-postgres has a built-in administrative interface and other tools to allow rapid web app development.    
   
