@@ -1,6 +1,6 @@
 {
     "name": "it-all/slim-postgres-skeleton",
-    "description": "The interface to it-all/slim-postgres: A PHP Framework Based on Slim Micro-Framework and PostgreSQL",
+    "description": "PHP Framework Based on Slim Micro-Framework and PostgreSQL",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -11,12 +11,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.1",
-        "it-all/slim-postgres": "dev-master"
+        "it-all/slim-postgres": "^1.1"
     },
     "autoload": {
         "psr-4": {
             "Domain\\": "domain",
+            "Exceptions\\": "Exceptions",
             "Templates\\": "templates"
         }
     }

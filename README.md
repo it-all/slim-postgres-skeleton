@@ -1,10 +1,21 @@
-# slim-postgres-skeleton  
-slim-postgres-skeleton works in conjunction with <a href="https://github.com/it-all/slim-postgres" target="_blank">slim-postgres</a> for web app development.  
-<a href="https://github.com/it-all/slim-postgres" target="_blank">slim-postgres</a> is a PHP Framework Based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a href="https://www.postgresql.org/">PostgreSQL</a>.  
+# slim-postgres  
+slim-postgres is a <a target="_blank" href="https://www.php.net">PHP</a> skeleton framework based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a target="_blank" href="https://www.postgresql.org/">PostgreSQL</a>.  
   
-slim-postgres has a built-in administrative interface and other tools to allow rapid web app development.    
+slim-postgres has a built-in administrative interface and other tools to allow rapid web app development.  
+  
+INSTALLATION  
+composer create-project it-all/slim-postgres-skeleton your-app-name 1.*  
+Set write permissions on /storage ie chmod -R 777 storage/  
+<a href="#createDb">Create your PostgreSQL database</a> and <a href="#restoreDb">restore /storage/dumps/pg_schema.sql and /storage/dumps/pg_data.sql to it</a>  
+Create a website with /public as the home directory  
+Copy/rename .env.example to .env then edit .env  
+Navigate to your site to see the default homepage. If there are no errors then you've succesfully connected to the database.  
+Edit then run cliScripts/insertTopAdministrator.php  
+Preempt 'object not found error': composer dump-autoload -o  
+Navigate to your site /private (the admin directory defined in settings['adminPath']) and login!  
   
 FEATURES  
+<a target="_blank" href="https://www.php.net">PHP</a> 7.1+  
 Built on <a target="_blank" href="https://slimframework.com">Slim framework</a>, a front-controller micro-framework for PHP  
 <a target="_blank" href="https://postgresql.org">PostgreSQL Database</a> Integration  
 <a target="_blank" href="#admin">Administrative User Interface and Navigation</a>  
@@ -21,17 +32,8 @@ Data Validation with <a target="_blank" href="https://github.com/vlucas/valitron
 <a href="https://github.com/vlucas/phpdotenv">PHP dotenv</a> for configuring server environments  
 <a href="#errLog">PHP Error Logging with Stack Trace</a> for debugging  
   
-INSTALLATION (work in progress)    
-composer create-project it-all/slim-postgres-skeleton --stability dev  
-composer install  
-Create your PostgreSQL database and restore pg_schema.sql and pg_data.sql  
-Copy/rename .env.example to .env then edit .env  
-Edit then run cliScripts/insertAdministrator.php  
-Navigate to your-site to see the default homepage  
-Navigate to your-site/private (the admin directory defined in settings['adminPath']) and login!  
-You may need to set write permissions on the storage directory  
-
-CODING NEW FUNCTIONALITY (work in progress)  
+CODING NEW FUNCTIONALITY  
+*work in progress*  
 Create a new directory under domain and create a Model/View/Controller (or whatever code structure you desire) as necessary. You can model these files after existing functionality such as SlimPostgres/Administrators/Roles (single database table model) or SlimPostgres/Administrators (joined database tables).  
 Add and configure your new route to the system by:  
 - Adding a new route name constant in config/constants.php  
@@ -104,16 +106,19 @@ if ($this->mailer !== null) {
 The <a href="https://github.com/slimphp/Slim-Csrf" target="_blank">Slim Framework CSRF</a> protection middleware is used to check CSRF form fields. The CSRF key/value generators are added to the container for form field creation. They are also made available to Twig. A failure is logged to SystemEvents as an error, the user's session is unset, and the user is redirected to the (frontend) homepage with an error message.  
   
 <a name="xss">XSS Prevention</a>  
-THIS SECTION NEEDS UPDATING. TWIG IS NO LONGER BEING USED, THEREFORE ANY DISPLAYED USER DATA MUST BE ESCAPED USING htmlspecialchars().  
-  
-The appropriate <a target="_blank" href="https://twig.sensiolabs.org/doc/2.x/filters/escape.html" target="_blank">Twig escape filter</a> are used for any user-input data* that is output through Twig. Note that Twig defaults to autoescape 'html' in the autoescape environment variable: https://twig.sensiolabs.org/api/2.x/Twig_Environment.html  
-  
-protectXSS() or arrayProtectRecursive() should be called for any user-input data* that is output into HTML independent of Twig (currently there is none).
-  
-*Note this includes database data that has been input by any user, including through the admin  
+<a href="http://us2.php.net/htmlentities" target="_blank">htmlentities()</a> is used to escape output.  
   
 <a name="errLog">PHP Error Log</a>  
 PHP Errors with stack trace are logged to the file set in config['storage']['errors']['phpErrorLogPath']  
    
-
+<a name="createDb">Create PostgreSQL Database (One Method)</a>  
+* $ psql -U postgres (note you may have to edit your pg_hba.conf file to allow local md5 or trust login https://stackoverflow.com/questions/45632463/peer-authentication-failed-for-user-in-postgresql)  
+* postgres=# create role myrolename with login; (creating the role with the same name as the database name allows easy psql access)  
+* postgres=# alter role myrolename with encrypted password 'mypassword';  
+* postgres=# create database mydbname with owner myrolename;  
+  
+<a name="restoreDb">Import pg_schema.sql and pg_data.sql</a>
+* pg_restore -U myrolename -O -c --if-exists -n public -d mydbname /storage/dumps/pg_schema.dump
+* pg_restore -U myrolename -O -n public -d mydbname /storage/dumps/pg_data.dump
+  
 ===========================================================>Thank you.

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9f9d5682ccfea9d62ebba456f5edece",
+    "content-hash": "aaa99be59a05cba1c1c3cd144ec74865",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -69,16 +69,16 @@
         },
         {
             "name": "it-all/slim-postgres",
-            "version": "dev-master",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-all/slim-postgres.git",
-                "reference": "5637b22b1654954278e555f067b6ce3caf7d1912"
+                "reference": "b08c4303460f1a92613a98b8764002129a98ecd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-all/slim-postgres/zipball/5637b22b1654954278e555f067b6ce3caf7d1912",
-                "reference": "5637b22b1654954278e555f067b6ce3caf7d1912",
+                "url": "https://api.github.com/repos/it-all/slim-postgres/zipball/b08c4303460f1a92613a98b8764002129a98ecd6",
+                "reference": "b08c4303460f1a92613a98b8764002129a98ecd6",
                 "shasum": ""
             },
             "require": {
@@ -94,8 +94,10 @@
             "type": "project",
             "autoload": {
                 "psr-4": {
-                    "SlimPostgres\\": "SlimPostgres",
                     "Domain\\": "domain",
+                    "Entities\\": "Entities",
+                    "Exceptions\\": "Exceptions",
+                    "Infrastructure\\": "Infrastructure",
                     "Templates\\": "templates"
                 }
             },
@@ -110,7 +112,7 @@
                 }
             ],
             "description": "PHP Framework Based on Slim Micro-Framework and PostgreSQL",
-            "time": "2018-10-15T22:37:26+00:00"
+            "time": "2018-10-19T13:25:01+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -702,13 +704,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "it-all/slim-postgres": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": "^7.1"
-    },
+    "platform": [],
     "platform-dev": []
 }

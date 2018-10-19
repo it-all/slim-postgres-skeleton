@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 return [
 
-    'businessName' => 'skele.com, LLC',
+    'businessName' => 'example.com, LLC',
 
-    'businessDba' => 'skele Company',
+    'businessDba' => 'Example Company',
 
     'domainName' => DOMAIN_NAME,
 
