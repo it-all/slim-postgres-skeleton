@@ -22,7 +22,7 @@ Data Validation with <a target="_blank" href="https://github.com/vlucas/valitron
 <a href="#errLog">PHP Error Logging with Stack Trace</a> for debugging  
   
 INSTALLATION (work in progress)    
-composer create-project it-all/slim-postgres-skeleton  
+composer create-project it-all/slim-postgres-skeleton --stability dev  
 composer install  
 Create your PostgreSQL database and restore pg_schema.sql and pg_data.sql  
 Copy/rename .env.example to .env then edit .env  
