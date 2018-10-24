@@ -9,12 +9,13 @@ $username = ''; // must exist or exception will occur
 
 use Entities\Administrators\Model\AdministratorsMapper;
 use Infrastructure\Database\Queries\QueryBuilder;
+use Infrastructure\SlimPostgres;
 
 define('APPLICATION_ROOT_DIRECTORY', realpath(__DIR__.'/..'));
 require APPLICATION_ROOT_DIRECTORY . '/vendor/autoload.php';
 require APPLICATION_ROOT_DIRECTORY . '/config/constants.php';
 
-new \SlimPostgres\App();
+new SlimPostgres();
 
 $administratorsMapper =  AdministratorsMapper::getInstance();
 if (null === $administratorId = $administratorsMapper->getAdministratorIdByUsername($username)) {

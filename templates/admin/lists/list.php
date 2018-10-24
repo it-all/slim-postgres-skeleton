@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-$numResults = count($displayItems);
-
 $partialsPath = APPLICATION_ROOT_DIRECTORY . '/templates/admin/partials/';
 $listPartialsPath = 'partials/';
 

@@ -36,7 +36,7 @@ abstract class ListTemplate
 
     protected $numResults;
 
-    public function __construct(string $title, Router $router, int $columnCount, bool $deletesPermitted, array $displayItems, ?array $insertLinkInfo, string $sortColumn, bool $sortByAsc, string $filterFormActionRoute, string $filterOpsList, string $filterValue, string $filterErrorMessage, string $filterFieldName, bool $isFiltered, string $resetFilterRoute, string $csrfNameKey, string $csrfName, string $csrfValueKey, string $csrfValue, bool $updatesPermitted, ?string $updateColumn, ?string $updateRoute, ?string $deleteRoute, array $headerFields)
+    public function __construct(string $title, Router $router, int $columnCount, bool $deletesPermitted, ?array $displayItems, ?array $insertLinkInfo, string $sortColumn, bool $sortByAsc, string $filterFormActionRoute, string $filterOpsList, string $filterValue, string $filterErrorMessage, string $filterFieldName, bool $isFiltered, string $resetFilterRoute, string $csrfNameKey, string $csrfName, string $csrfValueKey, string $csrfValue, bool $updatesPermitted, ?string $updateColumn, ?string $updateRoute, ?string $deleteRoute, array $headerFields)
     {
         $this->title = $title;
         $this->router = $router;
@@ -64,7 +64,7 @@ abstract class ListTemplate
         
         $this->headerFields = $headerFields;
         
-        $this->numResults = count($this->displayItems);
+        $this->numResults = $displayItems === null ? 0 : count($this->displayItems);
     }
 
     public function getStartMain(): string 

@@ -12,12 +12,13 @@ $passwordClear = ''; // make it a good one https://www.schneier.com/blog/archive
 use Entities\Administrators\Model\AdministratorsMapper;
 use Entities\Roles\Model\RolesMapper;
 use Entities\Permissions\Model\PermissionsMapper;
+use Infrastructure\SlimPostgres;
 
 define('APPLICATION_ROOT_DIRECTORY', realpath(__DIR__.'/..'));
 require APPLICATION_ROOT_DIRECTORY . '/vendor/autoload.php';
 require APPLICATION_ROOT_DIRECTORY . '/config/constants.php';
 
-new SlimPostgres\App();
+new SlimPostgres();
 
 pg_query("BEGIN");
 

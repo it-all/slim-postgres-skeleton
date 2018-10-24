@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "aaa99be59a05cba1c1c3cd144ec74865",
@@ -69,16 +69,16 @@
         },
         {
             "name": "it-all/slim-postgres",
-            "version": "v1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-all/slim-postgres.git",
-                "reference": "b08c4303460f1a92613a98b8764002129a98ecd6"
+                "reference": "e0195626c8c485cc5c3acd8d05c641f52684ec80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-all/slim-postgres/zipball/b08c4303460f1a92613a98b8764002129a98ecd6",
-                "reference": "b08c4303460f1a92613a98b8764002129a98ecd6",
+                "url": "https://api.github.com/repos/it-all/slim-postgres/zipball/e0195626c8c485cc5c3acd8d05c641f52684ec80",
+                "reference": "e0195626c8c485cc5c3acd8d05c641f52684ec80",
                 "shasum": ""
             },
             "require": {
@@ -94,11 +94,8 @@
             "type": "project",
             "autoload": {
                 "psr-4": {
-                    "Domain\\": "domain",
                     "Entities\\": "Entities",
-                    "Exceptions\\": "Exceptions",
-                    "Infrastructure\\": "Infrastructure",
-                    "Templates\\": "templates"
+                    "Infrastructure\\": "Infrastructure"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -112,7 +109,7 @@
                 }
             ],
             "description": "PHP Framework Based on Slim Micro-Framework and PostgreSQL",
-            "time": "2018-10-19T13:25:01+00:00"
+            "time": "2018-10-24T17:24:49+00:00"
         },
         {
             "name": "nikic/fast-route",
