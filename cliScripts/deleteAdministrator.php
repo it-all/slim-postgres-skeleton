@@ -7,7 +7,7 @@ declare(strict_types=1);
 $username = ''; // must exist or exception will occur
 /** end config */
 
-use Entities\Administrators\Model\AdministratorsMapper;
+use Entities\Administrators\Model\AdministratorsTableMapper;
 use Infrastructure\Database\Queries\QueryBuilder;
 use Infrastructure\SlimPostgres;
 
@@ -17,8 +17,8 @@ require APPLICATION_ROOT_DIRECTORY . '/config/constants.php';
 
 new SlimPostgres();
 
-$administratorsMapper =  AdministratorsMapper::getInstance();
-if (null === $administratorId = $administratorsMapper->getAdministratorIdByUsername($username)) {
+$administratorsTableMapper =  AdministratorsTableMapper::getInstance();
+if (null === $administratorId = $administratorsTableMapper->getIdByUsername($username)) {
     throw new \Exception("Administrator not found for username $username");
 }
 

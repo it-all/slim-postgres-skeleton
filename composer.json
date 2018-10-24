@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "it-all/slim-postgres": "^1.1"
+        "it-all/slim-postgres": "1.1.4"
     },
     "autoload": {
         "psr-4": {

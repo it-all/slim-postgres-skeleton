@@ -6,12 +6,12 @@ declare(strict_types=1);
 /** begin config */
 $name = '';
 $username = ''; // must be unique and at least 4 characters or query will fail
-$passwordClear = ''; // make it a good one https://www.schneier.com/blog/archives/2014/03/choosing_secure_1.html
+$passwordClear = ''; // not validated, make it a good one https://www.schneier.com/blog/archives/2014/03/choosing_secure_1.html
 /** end config */
 
-use Entities\Administrators\Model\AdministratorsMapper;
-use Entities\Roles\Model\RolesMapper;
-use Entities\Permissions\Model\PermissionsMapper;
+use Entities\Administrators\Model\AdministratorsEntityMapper;
+use Entities\Roles\Model\RolesTableMapper;
+use Entities\Permissions\Model\PermissionsEntityMapper;
 use Infrastructure\SlimPostgres;
 
 define('APPLICATION_ROOT_DIRECTORY', realpath(__DIR__.'/..'));
@@ -22,21 +22,21 @@ new SlimPostgres();
 
 pg_query("BEGIN");
 
-$rolesMapper = RolesMapper::getInstance();
+$rolesTableMapper = RolesTableMapper::getInstance();
 
-if (null === $topRoleId = $rolesMapper->getRoleIdForRole(TOP_ROLE)) {
-    $topRoleId = (int) $rolesMapper->insert(['role' => TOP_ROLE]);
+if (null === $topRoleId = $rolesTableMapper->getRoleIdForRole(TOP_ROLE)) {
+    $topRoleId = (int) $rolesTableMapper->insert(['role' => TOP_ROLE]);
 }
 $administratorActive = true;
 
-$administratorId = (AdministratorsMapper::getInstance())->create($name, $username, $passwordClear, [$topRoleId], $administratorActive);
+$administratorId = (AdministratorsEntityMapper::getInstance())->create($name, $username, $passwordClear, [$topRoleId], $administratorActive);
 
 /** assign all permissions to role. note, by default these are already installed for owner, but if a new TOP_ROLE is being defined then they will be inserted */
-$permissionsMapper = PermissionsMapper::getInstance();
+$permissionsEntityMapper = PermissionsEntityMapper::getInstance();
 
-foreach ($permissionsMapper->getObjects() as $permission) {
+foreach ($permissionsEntityMapper->getObjects() as $permission) {
     if (!$permission->hasRole($topRoleId)) {
-        $permissionsMapper->doInsertPermissionRole($permission->getId(), $topRoleId);
+        $permissionsEntityMapper->doInsertPermissionRole($permission->getId(), $topRoleId);
     }
 }
 
