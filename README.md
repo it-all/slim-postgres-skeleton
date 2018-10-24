@@ -59,7 +59,9 @@ Administrative resources can require authentication (login) to access. See confi
 Administrative resources and functionality can be protected against unauthorized use based on role based administrative permissions. Permissions to access system resources/functionality can be inserted through the administrative interface, then assigned to one or more roles. Administrators are also assigned roles, which then grants them the permissions assigned to those roles. Authorization checks are done by a simple AuthorizationService::isAuthorized(string $resource): bool call, where the $resource string must match the permission title that has been inserted. Checks are also performed in AdminNavigation to determine whether or not to display navigation options. Authorization failures result in alerts being written to the SystemEvents table and the user redirected to the admin homepage with a red alert message displayed. 
   
 <a name="se">System Event Database Logging</a>  
-Certain events such as logging in, logging out, inserting, updating, and deleting certain database records or system entities are automatically logged into the system_events table, which is viewable in the admin interface. You can choose other events to insert as you write your application. For usage examples and help, search "systemEvents->insert" and see SystemEventsTableMapper.php. PHP errors are also logged to the SystemEvents table by default (this can be turned off in $config['errors']['logToDatabase']). Note that php errors such as Notices and Warnings that occur during a transaction do not get logged to the database, as the transaction never gets commited, but Exceptions will be logged to the database, as they are caught inside the transaction, then the transaction is rolled back then the exception is re-thrown. Please search pg_query("BEGIN"); for examples.   
+Certain events such as logging in, logging out, inserting, updating, and deleting certain database records or business entities are automatically logged into the system_events table, which is viewable in the admin interface. You can choose other events to insert as you write your application. For usage examples and help, search "systemEvents->insert" and see SystemEventsTableMapper.php.  
+  
+PHP errors are also logged to the system_events table by default (this can be turned off in $config['errors']['logToDatabase']). Note that php errors such as Notices and Warnings that occur during a transaction do not get logged to the database, as the transaction never gets commited, but Exceptions will be logged to the database, as they are caught inside the transaction, then the transaction is rolled back then the exception is re-thrown. Please search pg_query("BEGIN"); for examples.   
 
 <a name="eh">Error Handling</a>  
 
@@ -68,7 +70,7 @@ Slim's built in error handling has been disabled, and custom error handling impl
 Reporting Methods:
 
 1. Database Log  
-    If the database and system events services have been set as properties in the ErrorHandler class, all errors are logged to the SystemEvents table. The stack trace is not provided, instead, a reference is made to view the log file for complete details.
+    If the database and system events services have been set as properties in the ErrorHandler class, all errors are logged to the SystemEvents table. The stack trace is not provided, instead, a reference is made to view the log file for complete details. See <a href="#se">System Event Database Logging</a> for more information.  
     
 2. File Log  
     All error details are logged to $config['storage']['logs']['pathPhpErrors'].
