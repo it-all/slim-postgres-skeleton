@@ -1,10 +1,10 @@
 # Slim-Postgres  
-Slim-Postgres is a <a target="_blank" href="https://www.php.net">PHP</a> framework based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a target="_blank" href="https://www.postgresql.org/">PostgreSQL</a>. It has a built-in administrative interface and other tools to allow rapid web app development.  
+Slim-Postgres is a <a target="_blank" href="https://secure.php.net/">PHP</a> framework based on <a target="_blank" href="https://www.slimframework.com/">Slim Micro-Framework</a> and <a target="_blank" href="https://www.postgresql.org/">PostgreSQL</a>. It has a built-in administrative interface and other tools to allow rapid web app development.  
   
 INSTALLATION  
 composer create-project it-all/slim-postgres-skeleton your-app-name 1.*  
 Set write permissions on /storage ie chmod -R 777 storage/  
-<a href="#createDb">Create your PostgreSQL database</a> and <a href="#restoreDb">restore /storage/dumps/pg_schema.sql and /storage/dumps/pg_data.sql to it</a>  
+<a href="#createdb">Create your PostgreSQL database</a> and <a href="#restoredb">restore</a> /storage/dumps/pg_schema.dump and /storage/dumps/pg_data.dump to it  
 Create a website with /public as the home directory  
 Copy/rename .env.example to .env then edit .env  
 Navigate to your site to see the default homepage. If there are no errors then you've succesfully connected to the database.  
@@ -28,7 +28,7 @@ HTML Form Generation using <a target="_blank" href="https://github.com/it-all/Fo
 Data Validation with <a target="_blank" href="https://github.com/vlucas/valitron">Valitron</a> (NOTE: If you are comparing floating-point numbers with min/max validators, you should install the PHP <a target="_blank" href="http://php.net/manual/en/book.bc.php">BCMath extension</a> for greater accuracy and reliability. The extension is not required for Valitron to work, but Valitron will use it if available, and it is highly recommended.)  
 <a href="#xss">XSS Prevention</a>  
 <a href="https://github.com/vlucas/phpdotenv">PHP dotenv</a> for configuring server environments  
-<a href="#errLog">PHP Error Logging with Stack Trace</a> for debugging  
+<a href="#errlog">PHP Error Logging with Stack Trace</a> for debugging  
   
 CODING NEW FUNCTIONALITY  
 *work in progress*  
@@ -40,7 +40,7 @@ Add and configure your new route to the system by:
 - For new administrative resources, if authorization is required at a resource or functionality level, add them to the resources / permissions section in config/constants.php, then add AuthorizationMiddleware to the route (see existing examples in the routes file)   
 - For new administrative resources, you can add a link in the administrative navigation menu by editing SlimPostgres/AdminNavigation.php, or config/settings.php ['adminNav']. 
 
-<a name="admin">Administrative Interface and Navigation</a>  
+<a id="admin">Administrative Interface and Navigation</a>  
 Upon browsing to the administrative directory set in $config['adminPath'] authenticating, the appropriate resource is loaded based on $config['slim']['authentication']['administratorHomeRoutes'], if found for the administrator, otherwise from ROUTE_ADMIN_HOME_DEFAULT in constants.php.  
   
 The following administrative functionalities are already coded:  
@@ -52,18 +52,18 @@ The following administrative functionalities are already coded:
 - Logout  
 These options are found in the navigation menu at top left. Once other options are coded, they can be added to the menu by uncommenting/adding to $config['slim']['adminNav'].  
 
-<a name="authe">Authentication</a>  
+<a id="authe">Authentication</a>  
 Administrative resources can require authentication (login) to access. See config/routes.php admin home for adding Authentication Middleware to a route.  
 
-<a name="autho">Authorization</a>  
+<a id="autho">Authorization</a>  
 Administrative resources and functionality can be protected against unauthorized use based on role based administrative permissions. Permissions to access system resources/functionality can be inserted through the administrative interface, then assigned to one or more roles. Administrators are also assigned roles, which then grants them the permissions assigned to those roles. Authorization checks are done by a simple AuthorizationService::isAuthorized(string $resource): bool call, where the $resource string must match the permission title that has been inserted. Checks are also performed in AdminNavigation to determine whether or not to display navigation options. Authorization failures result in alerts being written to the SystemEvents table and the user redirected to the admin homepage with a red alert message displayed. 
   
-<a name="se">System Event Database Logging</a>  
+<a id="se">System Event Database Logging</a>  
 Certain events such as logging in, logging out, inserting, updating, and deleting certain database records or business entities are automatically logged into the system_events table, which is viewable in the admin interface. You can choose other events to insert as you write your application. For usage examples and help, search "systemEvents->insert" and see SystemEventsTableMapper.php.  
   
 PHP errors are also logged to the system_events table by default (this can be turned off in $config['errors']['logToDatabase']). Note that php errors such as Notices and Warnings that occur during a transaction do not get logged to the database, as the transaction never gets commited, but Exceptions will be logged to the database, as they are caught inside the transaction, then the transaction is rolled back then the exception is re-thrown. Please search pg_query("BEGIN"); for examples.   
 
-<a name="eh">Error Handling</a>  
+<a id="eh">Error Handling</a>  
 
 Slim's built in error handling has been disabled, and custom error handling implemented, in order to handle any errors encountered prior to running the Slim application, as well as to be able to email an administrator that an error occured, and to log the error to the system_events database table, which is viewable in list form in the administrative interface.  
 
@@ -95,29 +95,29 @@ Reporting Methods:
   
 See ErrorHandler.php for further info.  
   
-<a name="emailing">Emailing with phpMailer</a>  
+<a id="emailing">Emailing with phpMailer</a>  
 Verify mailer service exists (it may not on dev servers, depending on $config['sendEmailsOnDevServer']).  
 // magic method to access mailer inside container  
 if ($this->mailer !== null) {  
 &nbsp;&nbsp;&nbsp;&nbsp;$this->mailer->send(...)  
 }  
                 
-<a name="csrf">CSRF</a>   
+<a id="csrf">CSRF</a>   
 The <a href="https://github.com/slimphp/Slim-Csrf" target="_blank">Slim Framework CSRF</a> protection middleware is used to check CSRF form fields. The CSRF key/value generators are added to the container for form field creation. They are also made available to Twig. A failure is logged to SystemEvents as an error, the user's session is unset, and the user is redirected to the (frontend) homepage with an error message.  
   
-<a name="xss">XSS Prevention</a>  
+<a id="xss">XSS Prevention</a>  
 <a href="http://us2.php.net/htmlentities" target="_blank">htmlentities()</a> is used to escape output.  
   
-<a name="errLog">PHP Error Log</a>  
+<a id="errLog">PHP Error Log</a>  
 PHP Errors with stack trace are logged to the file set in config['storage']['errors']['phpErrorLogPath']  
    
-<a name="createDb">Create PostgreSQL Database (One Method)</a>  
+<a id="createDb">Create PostgreSQL Database (One Method)</a>  
 * $ psql -U postgres (note you may have to edit your pg_hba.conf file to allow local md5 or trust login https://stackoverflow.com/questions/45632463/peer-authentication-failed-for-user-in-postgresql)  
 * postgres=# create role myrolename with login; (creating the role with the same name as the database name allows easy psql access)  
 * postgres=# alter role myrolename with encrypted password 'mypassword';  
 * postgres=# create database mydbname with owner myrolename;  
   
-<a name="restoreDb">Import pg_schema.sql and pg_data.sql</a>
+<a id="restoreDb">Import pg_schema.sql and pg_data.sql</a>
 * pg_restore -U myrolename -O -c --if-exists -n public -d mydbname /storage/dumps/pg_schema.dump
 * pg_restore -U myrolename -O -n public -d mydbname /storage/dumps/pg_data.dump
   
